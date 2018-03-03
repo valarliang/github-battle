@@ -1,2 +1,2 @@
 # github-battle
-a practice App
+a small App
