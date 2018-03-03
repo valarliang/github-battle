@@ -1,0 +1,83 @@
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+a{
+	text-decoration: none;
+	color: #d0021b;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.languages {
+  display: flex;
+  justify-content: center;
+}
+
+.languages li {
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.popular-list {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.popular-item {
+  margin: 20px;
+  text-align: center;
+}
+.popular-rank {
+  font-size: 20px;
+  margin: 10px;
+}
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.nav{
+	display: flex;
+}
+.active{
+	font-weight: bold;
+}
+.nav li{
+	margin-left: 15px;
+}
+
+.home-container{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.button {
+  color: #e6e6e6;
+  background: #0a0a0a;
+  border: none;
+  font-size: 16px;
+  border-radius: 3px;
+  width: 200px;
+  text-align: center;
+  display: block;
+  padding: 7px 0;
+  margin: 10px auto;
+}
+
+.button:hover:enabled {
+  background: linear-gradient(#1a1a1a,#0a0a0a);
+  color: #fff;
+  text-decoration: none;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
