@@ -16,6 +16,10 @@ function SelectLanguage(props) {
 		<ul className='languages'>{list}</ul>
 	)
 }
+SelectLanguage.propTypes={
+	selectedLanguage:PropTypes.string.isRequired,
+	updateLanguage:PropTypes.func.isRequired,
+}
 
 function RepoGrid(props) {
 	let list=props.repos.map((e,i)=>(
@@ -42,10 +46,7 @@ function RepoGrid(props) {
 RepoGrid.propTypes={
 	repos:PropTypes.array.isRequired,
 }
-SelectLanguage.propTypes={
-	selectedLanguage:PropTypes.string.isRequired,
-	updateLanguage:PropTypes.func.isRequired,
-}
+
 
 class Popular extends React.Component{
 	constructor(){
