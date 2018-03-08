@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import PlayerPreview from './PlayerPreview'
 
 class PlayerInput extends React.Component{
 	constructor(){
@@ -49,33 +50,6 @@ PlayerInput.defaultProps={
 	label:'Username',
 }
 
-function PlayerPreview(props) {
-	let {avatar,username,handleReset,id}=props;
-	return (
-		<div className="column">
-			<div>
-				<img 
-					src={avatar} 
-					alt={'Avatar for'+username} 
-					className="avatar"/>
-				<h2>@{username}</h2>
-			</div>
-			<button 
-				className="reset" 
-				onClick={handleReset.bind(null,id)}>
-					Reset
-			</button>
-		</div>
-	)
-}
-
-PlayerPreview.propTypes={
-	avatar:PropTypes.string.isRequired,
-	username:PropTypes.string.isRequired,
-	id:PropTypes.string.isRequired,
-	handleReset:PropTypes.func.isRequired,
-}
-
 class Battle extends React.Component{
 	constructor(){
 		super();
@@ -117,9 +91,13 @@ class Battle extends React.Component{
 						onSubmit={this.handleSubmit} />
 						:<PlayerPreview
 							avatar={playerOneImg}
-							username={playerOneName}
-							handleReset={this.handleReset}
-							id='playerOne' />}
+							username={playerOneName}>
+								<button 
+									className="reset" 
+									onClick={this.handleReset.bind(this,'playerOne')}>
+										Reset
+								</button>
+						</PlayerPreview>}
 					{!playerTwoName 
 						? <PlayerInput 
 						id='playerTwo'
@@ -127,9 +105,13 @@ class Battle extends React.Component{
 						onSubmit={this.handleSubmit} />
 						:<PlayerPreview
 							avatar={playerTwoImg}
-							username={playerTwoName}
-							handleReset={this.handleReset}
-							id='playerTwo' />}
+							username={playerTwoName}>
+								<button 
+									className="reset" 
+									onClick={this.handleReset.bind(this,'playerTwo')}>
+										Reset
+								</button>
+						</PlayerPreview>}
 				</div>
 				{playerOneName && playerTwoName &&
 					<Link
@@ -140,7 +122,6 @@ class Battle extends React.Component{
 						}}>
 							Battle
 						</Link>}
-						
 			</div>
 		)
 	}
