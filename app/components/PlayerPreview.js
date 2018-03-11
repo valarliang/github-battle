@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-function PlayerPreview(props) {
-	let {avatar,username,children}=props;
+function PlayerPreview({avatar,username,children}) {
 	return (
 		<div className="column">
 			<div>

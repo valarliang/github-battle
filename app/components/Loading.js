@@ -13,21 +13,17 @@ export class Loading extends Component {
 		super(props);
 		this.state={
 			text:props.text,
-			speed:props.speed,
 			style:props.style,
 		}
 	}
 	componentDidMount() {
-		let ending=this.props.text+'...';
+		let {text,speed}=this.props;
+		let ending=text+'...';
 		this.interval=setInterval(()=>{
-			if (this.state.text===ending) {
-				this.setState({text:this.props.text});
-			}else{
-				this.setState(prevState=>{
-					return {text:prevState.text+'.'}
-				});
-			}
-		},this.state.speed)
+			this.state.text===ending
+			?this.setState({text:this.props.text})
+			:this.setState(({text})=>({text:text+'.'}))   //{text}=prevState
+		},speed)
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
@@ -45,6 +41,6 @@ Loading.propTypes={
 }
 Loading.defaultProps={
 	text:'Loading',
-	speed:200,
+	speed:300,
 	style:styles.content,
 }

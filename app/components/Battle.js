@@ -21,6 +21,7 @@ class PlayerInput extends React.Component{
 	}
 	render(){
 		let {label}=this.props;
+		let {username}=this.state;
 		return(
 			<form onSubmit={this.handleSubmit} className="column">
 				<label htmlFor="username" className="header">{label}</label>
@@ -28,13 +29,13 @@ class PlayerInput extends React.Component{
 					type="text"
 					id="username"
 					placeholder="github username"
-					value={this.state.username}
+					value={username}
 					onChange={this.handleChange}
 					autoComplete='off' />
 				<button 
 					className="button" 
 					type="submit"
-					disabled={!this.state.username}>
+					disabled={!username}>
 					Submit
 				</button>
 			</form>
@@ -63,20 +64,16 @@ class Battle extends React.Component{
 		this.handleReset=this.handleReset.bind(this);
 	}
 	handleSubmit(id,name){
-		this.setState(function () {
-			let newState={};
-			newState[id+'Name']=name;
-			newState[id+'Img']='https://github.com/'+name+'.png?size=200';
-			return newState;
-		})
+		this.setState(()=>({
+			[id+'Name']: name,
+			[id+'Img']: 'https://github.com/'+name+'.png?size=200'
+		}))
 	}
 	handleReset(id){
-		this.setState(function () {
-			let newState={};
-			newState[id+'Name']='';
-			newState[id+'Img']=null;
-			return newState;
-		})
+		this.setState(()=>({
+			[id+'Name']: '',
+			[id+'Img']: null
+		}))
 	}
 	render() {
 		let {playerOneName,playerTwoName,playerOneImg,playerTwoImg}=this.state;
@@ -94,7 +91,7 @@ class Battle extends React.Component{
 							username={playerOneName}>
 								<button 
 									className="reset" 
-									onClick={this.handleReset.bind(this,'playerOne')}>
+									onClick={()=> this.handleReset('playerOne')}>
 										Reset
 								</button>
 						</PlayerPreview>}
@@ -108,7 +105,7 @@ class Battle extends React.Component{
 							username={playerTwoName}>
 								<button 
 									className="reset" 
-									onClick={this.handleReset.bind(this,'playerTwo')}>
+									onClick={()=> this.handleReset('playerTwo')}>
 										Reset
 								</button>
 						</PlayerPreview>}

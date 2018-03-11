@@ -6,8 +6,8 @@ import Link from 'react-router-dom'
 import {Loading} from './Loading'
 const api=require('../utils/api');
 
-function Profile(props) {
-	let {login,avatar_url,name,location,company,followers,following,public_repos,blog}=props.info;
+function Profile({info}) {
+	let {login,avatar_url,name,location,company,followers,following,public_repos,blog}=info;
 	return (
 		<PlayerPreview avatar={avatar_url} username={login}>
       <ul className='space-list-items'>
@@ -27,8 +27,7 @@ Profile.propTypes={
 	info:PropTypes.object.isRequired,
 }
 
-function Player(props) {
-	let {label,score,profile}=props;
+function Player({label,score,profile}) {
 	return (
 		<div style={{textAlign:'center'}} >
 			<h1>{label}</h1>
@@ -55,8 +54,8 @@ class Results extends React.Component{
 		}
 	}
 	componentDidMount() {
-		let players=queryString.parse(this.props.location.search);
-		api.battle([players.playerOneName,players.playerTwoName])
+		let {playerOneName,playerTwoName}=queryString.parse(this.props.location.search);
+		api.battle([playerOneName,playerTwoName])
 		.then(players=>{
 			if (players===null) {
 				this.setState({
