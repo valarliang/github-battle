@@ -50,20 +50,17 @@ RepoGrid.propTypes={
 
 
 class Popular extends React.Component{
-	constructor(){
-		super()
-		this.state={
-			selectedLanguage:'All',
-			repos:null
-		}
-		this.updateLanguage=this.updateLanguage.bind(this);
+	state={
+		selectedLanguage:'All',
+		repos:null
 	}
-	componentDidMount() {
+	componentDidMount=()=> {
 		this.updateLanguage(this.state.selectedLanguage);
 	}
-	updateLanguage(lang){
+	 updateLanguage=async (lang)=>{
 		this.setState({selectedLanguage:lang});
-		api.fetchPopularRepos(lang).then(repos=>this.setState({repos}))
+		const repos=await api.fetchPopularRepos(lang);
+		this.setState({repos})
 	}
 
 	render() {

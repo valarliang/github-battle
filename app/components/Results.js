@@ -44,32 +44,27 @@ Player.propTypes={
 }
 
 class Results extends React.Component{
-	constructor(){
-		super()
-		this.state={
-			winner:null,
-			loser:null,
-			loading:true,
-			error:null
-		}
+	state={
+		winner:null,
+		loser:null,
+		loading:true,
+		error:null
 	}
-	componentDidMount() {
+	async componentDidMount() {
 		let {playerOneName,playerTwoName}=queryString.parse(this.props.location.search);
-		api.battle([playerOneName,playerTwoName])
-		.then(players=>{
-			if (players===null) {
-				this.setState({
-					loading:false,
-					error:'Looks like there was an error.Check out both users exist on Github.'
-				});
-			}
+		const players=await api.battle([playerOneName,playerTwoName])
+		if (players===null) {
 			this.setState({
-				winner:players[0],
-				loser:players[1],
 				loading:false,
-				error:null
+				error:'Looks like there was an error.Check out both users exist on Github.'
 			});
-		})
+		}
+		this.setState({
+			winner:players[0],
+			loser:players[1],
+			loading:false,
+			error:null
+		});
 	}
 
 	render() {

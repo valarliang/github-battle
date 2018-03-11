@@ -9,12 +9,18 @@ let styles={
 }
 
 export class Loading extends Component {
-	constructor(props){
-		super(props);
-		this.state={
-			text:props.text,
-			style:props.style,
-		}
+	static propTypes={
+		text:PropTypes.string.isRequired,
+		style:PropTypes.object.isRequired,
+	}
+	static defaultProps={
+		text:'Loading',
+		speed:300,
+		style:styles.content,
+	}
+	state={
+		text:this.props.text,
+		style:this.props.style,
 	}
 	componentDidMount() {
 		let {text,speed}=this.props;
@@ -34,13 +40,4 @@ export class Loading extends Component {
 			<p style={style}>{text}</p>
 		);
 	}
-}
-
-Loading.propTypes={
-
-}
-Loading.defaultProps={
-	text:'Loading',
-	speed:300,
-	style:styles.content,
 }

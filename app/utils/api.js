@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-function getProfile(username) {
-	return axios.get('https://api.github.com/users/'+username).then(({data})=>data);
+async function getProfile(username) {
+	const {data}=await axios.get('https://api.github.com/users/'+username)
+	return data;
 }
 // console.log(getRepos('valarliang'))
-function getRepos(username) {
-	return axios.get('https://api.github.com/users/'+username+'/repos').then(({data})=>data);
+async function getRepos(username) {
+	const {data}=await axios.get('https://api.github.com/users/'+username+'/repos')
+	return data
 }
 
 function calculateScore({followers},repos) {
@@ -13,9 +15,9 @@ function calculateScore({followers},repos) {
 	return followers*3+totalStars;
 }
 
-function getUserData(player) {
-	return axios.all([getProfile(player),getRepos(player)])
-	.then(([profile,repos])=>({profile,score:calculateScore(profile,repos)}))
+async function getUserData(player) {
+	const [profile,repos]=await Promise.all([getProfile(player),getRepos(player)])
+	return {profile,score:calculateScore(profile,repos)}
 }
 
 function sortPlayers(players) {
@@ -24,10 +26,11 @@ function sortPlayers(players) {
 
 module.exports={
 	battle(players){
-		return axios.all(players.map(getUserData)).then(sortPlayers).catch(()=>console.warn(error));
+		return Promise.all(players.map(getUserData)).then(sortPlayers).catch(()=>console.warn(error));
 	},
-	fetchPopularRepos(language){
-		let url = encodeURI('https://api.github.com/search/repositories?q=stars:>1+language:'+ language + '&sort=stars&order=desc&type=Repositories');
-		return axios.get(url).then(({data})=>data.items);
+	async fetchPopularRepos(language){
+		const url = encodeURI('https://api.github.com/search/repositories?q=stars:>1+language:'+ language + '&sort=stars&order=desc&type=Repositories');
+		const {data}=await axios.get(url);
+		return data.items;
 	}
 }
