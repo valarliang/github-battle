@@ -5,8 +5,10 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start": "webpack-dev-server --open"
+    "build": "SET NODE_ENV='production' && webpack -p",
+    "start": "webpack-dev-server --open",
+    "firebase-init": "firebase login && firebase init",
+    "deploy": "npm run build && firebase deploy"
   },
   "babel": {
     "presets": [
